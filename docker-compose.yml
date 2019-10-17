@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+   database:
+     image: mysql:5.7.22
+     volumes:
+       - ~/data/glpi:/var/lib/mysql
+       - ./db:/db
+     restart: unless-stopped
+     environment:
+       MYSQL_ROOT_PASSWORD: glpi
+     container_name: database_glpi
+     networks:
+      webserver_network:
+        ipv4_address: "192.170.0.2"
+
+   glpi:
+     build:
+       context: ./
+     ports:
+        - 127.0.0.1:9898:80
+     restart: unless-stopped
+     volumes:
+       - ./glpi:/var/www/glpi
+       - ./ssl/:/ssl
+       - ./apache-dev:/etc/apache2/sites-enabled/
+#      - ./apache-prod:/etc/apache2/sites-enabled/
+     container_name: server_glpi
+     networks:
+      webserver_network:
+        ipv4_address: "192.170.0.3"
+
+   fusioninventory:
+     build:
+       context: ./files_docker_fusioninventory
+     ports:
+        - 127.0.0.1:9999:62354
+     restart: unless-stopped  
+     container_name: fusioninventory_glpi
+     networks:
+      webserver_network:
+        ipv4_address: "192.170.0.4"
+
+
+networks:
+  webserver_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.170.0.0/16"

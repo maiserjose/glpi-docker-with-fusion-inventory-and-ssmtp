@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7.22
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
+    environment:      
+        MYSQL_ROOT_PASSWORD: ${MYSQL_DATABASE_PASSWORD}
+    restart: always
+    volumes:
+        - database:/var/lib/mysql
+
+  glpi:
+#    depends_on:
+#      - db
+    image: cmotta2016/glpi
+#    deploy:
+#      replicas: 1
+#      restart_policy:
+#        condition: on-failure
+    restart: always
+    ports:
+      - "80"
+    volumes:
+      - app:/var/www/glpi
+
+volumes:
+  database:
+  app:
