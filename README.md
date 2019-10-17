@@ -22,11 +22,19 @@ __2 - Access the repository__
 cd ambiente-glpi
 ```
 
-__3 - Up the container:__
+__3 - Extract GLPI Files to path /glpi:__
+
+__4 - Up the container:__
 
 ```sh
 docker-compose up -d
 ```
+
+__5 - Config the GLPI system in url:__
+```
+localhost:9090
+```
+
 
 # Verifying the environment
 
