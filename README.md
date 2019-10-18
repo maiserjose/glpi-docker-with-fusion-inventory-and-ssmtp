@@ -32,7 +32,7 @@ docker-compose up -d
 
 __5 - Config the GLPI system in url:__
 ```
-localhost:9090
+localhost:9898
 ```
 
 
@@ -44,7 +44,7 @@ If you have not changed the configuration of the __docker-compose.yml__ file the
 To access it put in your browser the address:
 
 ```
-localhost:9090
+localhost:9898
 ```
 
 
